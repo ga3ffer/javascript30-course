@@ -5,7 +5,7 @@
   <title>Array Cardio 💪💪</title>
 </head>
 <body>
-  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <p><em>Psst: have a look at the JavaScript Console</{em}> 💁</p>
   <script>
     // ## Array Cardio Day 2
 
@@ -30,20 +30,20 @@
       const currYear = (new Date()).getFullYear();
       return currYear - person.year >= 19;
     });
-    console.log(isAdult);
+    console.log({isAdult});
 
     const ES6isAdult = people.some(person => ((new Date().getFullYear()) - person.year) >= 19);
-    console.log(ES6isAdult);
+    console.log({ES6isAdult});
 
     // Array.prototype.every() // is everyone 19 or older?
     const allAdults = people.every(function(person) {
       const currYear = (new Date()).getFullYear();
       return currYear - person.year >= 19;
     });
-    console.log(allAdults);
+    console.log({allAdults});
 
     const ES6allAdults = people.every(person => (new Date().getFullYear()) - person.year >= 19);
-    console.log(ES6allAdults);
+    console.log({ES6allAdults});
 
     // Array.prototype.find()
     // Find is like filter, but instead returns just the one you are looking for
@@ -51,10 +51,10 @@
     const comment = comments.find(function(comment) {
       return comment.id === 823423;
     });
-    console.log(comment);
+    console.log({comment});
 
     const ES6comment = comments.find(comment => comment.id === 823423);
-    console.log(ES6comment);
+    console.log({ES6comment});
 
     // Array.prototype.findIndex()
     // Find the comment with this ID
@@ -62,12 +62,12 @@
     const index = comments.findIndex(function(comment) {
       return comment.id === 823423;
     });
-    console.log(index);
+    console.log({index});
 
     // comments.splice(0, index); //delete comment with ID 823423
 
     const ES6index = comments.findIndex(comment => comment.id === 823423);
-    console.log(ES6index);
+    console.log({ES6index});
 
     const newComments = [
       ...comments.slice(0, ES6index),
