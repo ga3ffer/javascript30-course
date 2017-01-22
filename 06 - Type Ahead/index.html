@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+<script>
+  const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+  const cities = [];
+  const searchInput = document.querySelector('.search');
+  const suggestions = document.querySelector('.suggestions');
+
+  // modern browser API provides experimental 'fetch' method that fetches resources (including across network)
+  // and returns a Promise containing the response in a Response object.
+  fetch(endpoint)
+    .then(blob => blob.json())
+    .then(data => cities.push(...data));
+
+  function findMatches(stringToMatch, cities) {
+    return cities.filter(place => {
+      // figure out of the city or state matches the search string
+      const regex = new RegExp(stringToMatch, 'gi');
+      return place.city.match(regex) || place.state.match(regex)
+    });
+  }
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function displayMatchedData() {
+    const matchArray = findMatches(this.value, cities);
+
+    const suggestionList = matchArray.map(place => {
+      const regex = new RegExp(this.value, 'gi');
+      const cityName = place.city.replace(regex, `<span class="h1">${this.value}</span>`);
+      const stateName = place.state.replace(regex, `<span class="h1">${this.value}</span>`);
+      return `
+        <li>
+          <span class="name">${cityName}, ${stateName}</span>
+          <span class="population">${numberWithCommas(place.population)}</span>
+        </li>
+      `;
+    }).join('');
+    suggestions.innerHTML = suggestionList;
+  }
+
+  searchInput.addEventListener('change', displayMatchedData);
+  searchInput.addEventListener('keyup', displayMatchedData);
+
+</script>
+  </body>
+</html>
