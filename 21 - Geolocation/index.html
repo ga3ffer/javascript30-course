@@ -13,6 +13,14 @@
     <span class="speed-value">0</span>
     <span class="units">KM/H</span>
   </h1>
+  <h1 class="latitude">
+    <span class="lat-value">0</span>
+    <span class="units">Latitude</span>
+  </h1>
+  <h1 class="longitude">
+    <span class="long-value">0</span>
+    <span class="units">Longitude</span>
+  </h1>
 
   <style>
     html {
@@ -59,10 +67,15 @@
   <script>
     const arrow = document.querySelector('.arrow');
     const speed = document.querySelector('.speed-value');
+    const lat = document.querySelector('.lat-value');
+    const long = document.querySelector('.long-value');
 
     navigator.geolocation.watchPosition((data) => {
       // console.log(data);
       speed.textContent = data.coords.speed;
+      lat.textContent = data.coords.latitude;
+      long.textContent = data.coords.longitude;
+      // arrow.style.transform = `rotate(50deg)`;
       arrow.style.transform = `rotate(${data.coords.heading}deg)`;
     }, (err) => {
       console.err(err);
