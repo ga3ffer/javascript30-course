@@ -26,18 +26,23 @@
       .map(result => result.transcript)
       .join('')
 
-      p.textContent = transcript;
+      // p.textContent = transcript;
+      const poopScript = transcript.replace(/poop|poo|shit|dump/gi, '💩');
+      p.textContent = poopScript;      
+
       if(e.results[0].isFinal) {
         p = document.createElement('p');
         words.appendChild(p);
       }
+
       if(transcript.includes('get the weather')) {
         console.log('Getting the weather');
       }
+
     // console.log(transcript);
   });
 
-  recognition.addEventListener('end', recognition.start());
+  recognition.addEventListener('end', recognition.start);
 
   recognition.start();
 
